@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smtpmail.mapper.EmailMapper">
+	<select id="selectById" resultType="com.smtpmail.entity.Email">
+		select *
+		from `email`
+		where id = #{id}
+	</select>
+	<select id="selectUnRead" resultType="com.smtpmail.entity.Email">
+		select *
+		from `email`
+		where state = 1
+	</select>
+	<select id="selectByFrom" resultType="com.smtpmail.entity.Email">
+		select *
+		from `email`
+		where mail_from = #{mailFrom}
+	</select>
+	<select id="selectByUsername" resultType="com.smtpmail.entity.Email">
+		select *
+		from `email`
+		where rcpt_to = #{username}
+			and is_deleted = 0
+	</select>
+	<insert id="insert">
+		insert into `email`(id, helo, mail_from, rcpt_to, `from`, `to`, `subject`, `date`, `data`,
+												datagram, `length`)
+			value (#{id}, #{helo}, #{mailFrom}, #{rcptTo}, #{from}, #{to}, #{subject}, #{date}, #{data}, #{datagram}, #{length})
+	</insert>
+	<update id="removeBatch">
+		update `email`
+		set is_deleted = 1
+		where id in
+		<foreach collection="idList" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</update>
+	<update id="updateState">
+		update `email`
+		set state = #{newState}
+		where id = #{id}
+	</update>
+
+	<delete id="removeBatchByRcptTo">
+		delete from `email`
+		where rcpt_to in
+		<foreach collection="rcptToList" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

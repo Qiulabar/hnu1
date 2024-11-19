@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smtpmail.mapper.PublisherMapper">
+	<insert id="save">
+		insert into `publisher`(username,state,ack_time,audit_time)
+		values(#{username}, #{state}, #{ackTime}, #{auditTime})
+	</insert>
+
+	<update id="updateAudit">
+		update `publisher`
+		set state = #{state} , audit_time = #{auditTime}
+		where username = #{username}
+	</update>
+
+	<select id="selectAudit0Count" resultType="java.lang.Long">
+		select count(*) from `publisher`
+		where state = 0
+	</select>
+
+	<select id="selectAudit1Count" resultType="java.lang.Long">
+		select count(*) from `publisher`
+		where state = 1
+	</select>
+
+	<select id="selectAudit0" resultType="com.smtpmail.entity.Publisher">
+		select * from `publisher`
+		where state = 0
+		limit #{current}, #{size}
+	</select>
+
+	<select id="selectAudit1" resultType="com.smtpmail.entity.Publisher">
+		select * from `publisher`
+		where state = 1
+		limit #{current}, #{size}
+	</select>
+
+	<select id="selectAudit1ForUser" resultType="com.smtpmail.entity.Publisher">
+		select username, avatar from `publisher`
+		where state = 1
+	</select>
+
+	<select id="select" resultType="com.smtpmail.entity.Publisher">
+		select * from `publisher`
+		where username = #{username}
+	</select>
+	
+	<select id="selectList" resultType="com.smtpmail.entity.Publisher">
+		select * from `publisher`
+		where username in
+		<foreach collection="publishers" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectFuzzyCount" resultType="java.lang.Long">
+		select count(*) from `publisher`
+		where username like #{username} and state = #{state}
+	</select>
+
+	<select id="selectFuzzy" resultType="com.smtpmail.entity.PublisherShow">
+		select username, `state`, audit_time
+		from `publisher`
+		where username like #{username} and state = #{state}
+		limit #{current}, #{limit}
+	</select>
+
+	<delete id="removeBatch">
+		delete from `publisher`
+		where username in
+		<foreach collection="nameList" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+	<update id="updateAvatar">
+		update `publisher`
+		set avatar = #{avatar}
+		where username = #{username}
+	</update>
+</mapper>

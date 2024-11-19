@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smtpmail.mapper.SubscriberMapper">
+	<select id="findAllForPublisher" resultType="java.lang.String">
+		select distinct subscriber from `subscriber`
+		where publisher = #{publisher}
+	</select>
+
+	<insert id="save">
+		insert into `subscriber`
+		values(#{publisher}, #{subscriber}, #{createTime})
+	</insert>
+
+	<select id="select" resultType="com.smtpmail.entity.Subscriber">
+		select * from `subscriber`
+		where publisher = #{publisher} and subscriber = #{subscriber}
+	</select>
+
+	<delete id="delete">
+		delete from `subscriber`
+		where publisher = #{publisher} and subscriber = #{subscriber}
+	</delete>
+
+	<select id="findAllForSubscriber" resultType="java.lang.String">
+		select distinct publisher from `subscriber`
+		where subscriber = #{subscriber}
+	</select>
+</mapper>

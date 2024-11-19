@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smtpmail.mapper.UserMapper">
+	<select id="selectAll" resultType="com.smtpmail.entity.User">
+		select username, phone, level
+		from `user`
+		where is_deleted = 0
+	</select>
+
+	<select id="pageAllCount" resultType="java.lang.Long">
+		select count(*) from `user`
+		where is_deleted = 0
+	</select>
+
+	<select id="pageAll" resultType="com.smtpmail.entity.User">
+		select * from `user`
+		where  is_deleted = 0
+		limit #{current}, #{limit}
+	</select>
+
+	<select id="selectByLevel" resultType="com.smtpmail.entity.User">
+		select *
+		from `user`
+		where level = #{level}
+			and is_deleted = 0
+	</select>
+
+	<select id="select" resultType="com.smtpmail.entity.User">
+		select *
+		from `user`
+		where username = #{username}
+			and is_deleted = 0
+	</select>
+
+	<select id="selectAuth" resultType="java.lang.Integer">
+		select count(*)
+		from `user`
+		where username = #{username}
+			and password = #{password}
+			and is_deleted = 0
+			and level != -1
+	</select>
+
+	<select id="selectExist" resultType="com.smtpmail.entity.User">
+		select *
+		from `user`
+		where username = #{username}
+	</select>
+
+	<select id="selectFuzzy" resultType="com.smtpmail.entity.UserShow">
+		select username, phone, level
+		from `user`
+		where username like #{username}
+		limit #{current}, #{limit}
+	</select>
+
+	<select id="selectFuzzyCount" resultType="java.lang.Long">
+		select count(*)
+		from `user`
+		where username like #{username}
+	</select>
+
+	<insert id="insert">
+		insert into `user`(username, password, phone, level, avatar, create_time, is_deleted)
+		values (#{username}, #{password}, #{phone}, #{level}, null, #{createTime}, #{isDeleted})
+	</insert>
+
+	<update id="remove">
+		update `user`
+		set is_deleted = 1
+		where username = #{username}
+			and is_deleted = 0
+	</update>
+
+	<update id="update">
+		update `user`
+		set password = #{password},
+				phone    = #{phone},
+				create_time = #{createTime},
+				level = 1,
+		    avatar = null,
+		    is_deleted = #{isDeleted}
+		where username = #{username}
+	</update>
+
+	<update id="removeBatch">
+		update `user`
+		set is_deleted = 1
+		where is_deleted = 0 and username in
+		<foreach collection="nameList" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="disableBatch">
+		update `user`
+		set level = -1
+		where is_deleted = 0 and username in
+		<foreach collection="nameList" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="ableBatch">
+		update `user`
+		set level = 1
+		where is_deleted = 0 and username in
+		<foreach collection="nameList" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="saveAvatar">
+		update `user`
+		set avatar = #{avatar}
+		where username = #{username}
+	</update>
+
+	<update id="updatePublisher">
+		update `user`
+		set is_publisher = #{state}
+		where username = #{username}
+	</update>
+
+	<update id="updatePublisherBatch">
+		update `user`
+		set is_publisher = #{state}
+		where username in
+		<foreach collection="nameList" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+
+	<select id="statistics" resultType="java.util.Map">
+		SELECT count(*) `count` , timestampdiff(DAY , create_time, NOW()) timeDiff FROM `user`
+		group by timeDiff
+		having timeDiff <![CDATA[<]]> 14
+		order by timeDiff
+	</select>
+</mapper>

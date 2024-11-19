@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文件上传测试</title>
+</head>
+<body>
+  <h2>上传头像</h2>
+	<form method="post" enctype="multipart/form-data" action="http://localhost:8080/smtpmail/user/avatar/upload">
+		<input name="file" type="file" value="选择文件"><br/><br/>
+		<input name="submit" type="submit" value="上传文件">
+		<hr/>
+	</form>
+</body>
+</html>

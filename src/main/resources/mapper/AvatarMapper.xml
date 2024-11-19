@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smtpmail.mapper.AvatarMapper">
+
+	<insert id="save">
+		insert into `avatar`
+		values(#{username}, #{avatar}, #{createTime})
+	</insert>
+
+	<select id="findAllByUsername" resultType="com.smtpmail.entity.Avatar">
+		select * from `avatar`
+		where username = #{username}
+	</select>
+
+	<delete id="remove">
+		delete from `avatar`
+		where username = #{username}
+		and avatar in
+		<foreach collection="avatarList" item="avatar" open="(" close=")" separator=",">
+			#{avatar.avatar}
+		</foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smtpmail.mapper.BlackListMapper">
+	<select id="listBlackList" resultType="com.smtpmail.entity.BlackList">
+		select * from `black_list`
+		where username = #{username}
+	</select>
+
+	<insert id="insert">
+		insert into `black_list`(username, black_target, type)
+		values(#{username}, #{blackTarget}, #{type})
+	</insert>
+
+	<select id="selectExist" resultType="java.lang.Integer">
+		select count(*) from `black_list`
+		where username=#{username} and black_target=#{blackTarget} and type=#{type}
+	</select>
+
+	<delete id="removeBatch">
+		delete from `black_list`
+		where username = #{username}
+		and id in
+		<foreach collection="idList" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>
