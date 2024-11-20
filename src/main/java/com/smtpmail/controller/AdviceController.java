@@ -27,11 +27,11 @@ public class AdviceController {
 	 * advice: advice
 	 */
 	@PostMapping
-	public Result giveAdvice(@RequestBody Advice advice) {
+	public Result saveAdvice(@RequestBody Advice advice) {
 		String username = jwtUtil.getUserToken().getUsername();
 		threadPool.execute(() -> {
 			advice.setUsername(username);
-			adviceService.save(advice);
+			adviceService.saveAdvice(advice);
 		});
 		return Result.ok();
 	}

@@ -1,11 +1,10 @@
 package com.smtpmail.config;
 
-import com.smtpmail.context.interceptor.AuthInterceptor;
+import com.smtpmail.filters.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 @Configuration
 public class MVCConfigurer implements WebMvcConfigurer {
 

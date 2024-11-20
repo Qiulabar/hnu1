@@ -42,7 +42,7 @@ public class Pop3Server {
 		isPop3pRunning.set(false);
 		log.info("Pop3Server is Stopped");
 		shutDown();
-		pop3Thread.stop();
+		pop3Thread.interrupt();
 	}
 
 	public static boolean isRunning() {

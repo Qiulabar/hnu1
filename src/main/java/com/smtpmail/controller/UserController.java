@@ -20,6 +20,8 @@ import com.smtpmail.mapper.EmailMapper;
 import com.smtpmail.mapper.PublisherMapper;
 import com.smtpmail.mapper.StarEmailMapper;
 import com.smtpmail.mapper.UserMapper;
+import com.smtpmail.service.EmailService;
+import com.smtpmail.service.UserService;
 import com.smtpmail.util.JWTUtil;
 import com.smtpmail.util.OSSUtil;
 import com.smtpmail.util.SMSUtil;
@@ -61,7 +63,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
 	@Autowired
-	UserMapper userMapper;
+	UserService userService;
+	@Autowired
+	EmailService emailService;
 	@Autowired
 	EmailMapper emailMapper;
 	@Autowired
@@ -103,8 +107,8 @@ public class UserController {
 			log.error("【{}】用户尝试获取所有管理员，失败原因：无权限", jwtUtil.getUserToken().getUsername());
 			return Result.error().message("无权限");
 		}
-		Long count = userMapper.pageAllCount();
-		List<User> users = userMapper.pageAll((current - 1) * limit, limit);
+		Long count = userService.pageAllCount();
+		List<User> users = userService.pageAll(current, limit);
 		Page<User> page = new Page<>(current, limit);
 		page.setTotal(count).setRecords(users);
 		log.info("【{}】成功获取所有用户列表(size={})", jwtUtil.getUserToken().getUsername(), count);
@@ -127,10 +131,10 @@ public class UserController {
 		username = "%" + username + "%@lunangangster.store";
 		String finalUsername = username;
 		CompletableFuture<Long> f1 = CompletableFuture.supplyAsync(() -> {
-			return userMapper.selectFuzzyCount(finalUsername);
+			return userService.selectFuzzyCount(finalUsername);
 		}, threadPool);
 		CompletableFuture<List<UserShow>> f2 = CompletableFuture.supplyAsync(() -> {
-			return userMapper.selectFuzzy(finalUsername, (current - 1) * limit, limit);
+			return userService.selectFuzzy(finalUsername, current, limit);
 		}, threadPool);
 		try {
 			CompletableFuture.allOf(f1, f2).get();
@@ -152,7 +156,7 @@ public class UserController {
 			return Result.error().message("无权限");
 		}
 		log.info("【{}】成功获取管理员列表", jwtUtil.getUserToken().getUsername());
-		List<User> users = userMapper.selectByLevel(1);
+		List<User> users = userService.selectByLevel(1);
 		return Result.ok().data("users", users);
 	}
 
@@ -167,7 +171,7 @@ public class UserController {
 			return Result.error().message("用户信息不完整");
 		} else {
 			String errorMessage = "";
-			u = userMapper.select(user.getUsername());
+			u = userService.select(user.getUsername());
 			if (u == null) {
 				errorMessage = "用户不存在";
 			} else if (u.getLevel() == -1) {
@@ -206,7 +210,7 @@ public class UserController {
 			return Result.error().message("用户名或密码错误");
 		}
 		// JWT获取token，并保存
-		User u = userMapper.select(user.getUsername());
+		User u = userService.select(user.getUsername());
 		if (!u.getPassword().equals(user.getPassword())
 				|| u.getLevel() != 0) {
 			return Result.error().message("用户名或密码错误");
@@ -235,21 +239,21 @@ public class UserController {
 		if (code == null || !code.equals(userRegister.getAuthCode())) {
 			return Result.error().message("验证码错误");
 		}
-		User u = userMapper.selectExist(userRegister.getUsername());
+		User u = userService.selectExist(userRegister.getUsername());
 		User user = new User();
 		BeanUtils.copyProperties(userRegister, user);
 		user.setLevel(1);
 		user.setIsDeleted(0);
 		user.setCreateTime(new Date());
 		if (u == null) {  // 如果该用户名没有被注册过，则直接插入
-			userMapper.insert(user);
+			userService.insert(user);
 			log.info("【{}】用户注册系统成功", user.getUsername());
 			return Result.ok().message("用户注册成功");
 		} else if (u.getIsDeleted() == 1) { // 如果该用户名被注册过，则清空数据再进行更新操作
 			// 删除原先用户的所有接收邮件 TODO 异步删除
-			emailMapper.removeBatchByRcptTo(Collections.singletonList(u.getUsername()));
+			emailService.removeBatchByRcptTo(user.getUsername());
 			// 更新用户
-			userMapper.update(user);
+			userService.update(user);
 			log.info("【{}】用户注册系统成功", user.getUsername());
 			return Result.ok().message("用户注册成功");
 		}
@@ -272,7 +276,7 @@ public class UserController {
 			for (String name : nameList) {
 				log.info("【{}】管理员禁用【{}】", managerName, name);
 			}
-			userMapper.disableBatch(nameList);
+			userService.disableBatch(nameList);
 		}
 		return Result.ok();
 	}
@@ -292,7 +296,7 @@ public class UserController {
 			for (String name : nameList) {
 				log.info("【{}】管理员解禁【{}】", managerName, name);
 			}
-			userMapper.ableBatch(nameList);
+			userService.ableBatch(nameList);
 		}
 		return Result.ok();
 	}
@@ -324,7 +328,7 @@ public class UserController {
 	 */
 	@PutMapping("/update")
 	public Result updateUserPhone(@RequestBody UserUpdate user) {
-		User u = userMapper.select(user.getUsername());
+		User u = userService.select(user.getUsername());
 		if (u == null || u.getLevel() == -1) {
 			return Result.error().message("用户不存在或已被禁用");
 		}
@@ -342,7 +346,7 @@ public class UserController {
 		if (StringUtils.hasText(user.getNewPassword())) {
 			u.setPassword(user.getNewPassword());
 		}
-		userMapper.update(u);
+		userService.update(u);
 		log.info("【{}】用户修改信息成功", u.getUsername());
 		return Result.ok();
 	}
@@ -363,7 +367,7 @@ public class UserController {
 				log.info("【{}】管理员删除【{}】", managerName, name);
 			}
 			CompletableFuture<Void> f1 = CompletableFuture.runAsync(() -> {
-				userMapper.removeBatch(nameList);
+				userService.removeBatch(nameList);
 			}, threadPool);
 			CompletableFuture<Void> f2 = CompletableFuture.runAsync(() -> {
 				publisherMapper.removeBatch(nameList);
@@ -474,7 +478,7 @@ public class UserController {
 		String fileName = file.getOriginalFilename();
 		String url = ossUtil.saveObject(is, username.substring(0, username.indexOf('@')), fileName);
 		CompletableFuture<Void> f1 = CompletableFuture.runAsync(() -> {
-			userMapper.saveAvatar(username, url);
+			userService.saveAvatar(username, url);
 		}, threadPool);
 		CompletableFuture<Void> f2 = CompletableFuture.runAsync(() -> {
 			avatarMapper.save(new Avatar(username, url, new Date()));
@@ -521,7 +525,7 @@ public class UserController {
 			log.error("【{}】用户尝试获取用户统计数据，失败原因：无权限", jwtUtil.getUserToken().getUsername());
 			return Result.error().message("无权限");
 		}
-		Map<Long, Map<String, Long>> resultMap = userMapper.statistics();
+		Map<Long, Map<String, Long>> resultMap = userService.statistics();
 		Entry[] list = new Entry[14];
 		Long sum = 0L;
 		for (int i = 13; i >= 0; i--) {

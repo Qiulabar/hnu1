@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1a4d2a80-28d8-4fd3-b312-b7ff19fa7254" name="更改" comment="feat: 初始化 SMTP 邮件项目&#10;&#10;- 添加项目基础结构和配置文件&#10;- 实现用户认证和拦截器功能&#10;- 添加邮件解析和发送工具类&#10;- 创建数据库表和 Mapper 文件&#10;-编写单元测试用例">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/mapper/AdviceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/service/AvatarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ApifoxUploaderProjectSetting.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/smtpmail/config/MVCConfigurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/config/MVCConfigurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/smtpmail/controller/AdviceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/controller/AdviceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/smtpmail/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/smtpmail/service/AdviceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/service/AdviceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/smtpmail/service/Pop3Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/smtpmail/service/Pop3Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/AdviceMapper.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="customMavenHome" value="D:\MAVEN\apache-maven-3.9.9\apache-maven-3.9.9" />
+        <option name="localRepository" value="D:\apache-maven-3.6.1-bin\apache-maven-3.6.1\mvn_repo" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
+        <option name="userSettingsFile" value="D:\MAVEN\apache-maven-3.9.9\apache-maven-3.9.9\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="jdkForImporter" value="11" />
+        <option name="workspaceImportForciblyTurnedOn" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="#JAVA_HOME" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2osNF0TiRK4xLbc8Y5C9DrKkiwe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP 请求.generated-requests | #22.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #23.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SmtpMailApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/86188/Desktop/大三上/计算机网络/邱琼林/小班讨论/小班2/smtp-mail-develop&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.47356322&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.smtpmail.filters" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.SmtpMailApplication">
+    <configuration name="generated-requests | #22" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="22" requestIdentifier="#22" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #23" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="23" requestIdentifier="#23" runType="运行单个请求">
+      <method v="2" />
+    </configuration>
+    <configuration name="SmtpMailApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="smtp-mail" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.smtpmail.start.SmtpMailApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP 请求.generated-requests | #23" />
+        <item itemvalue="HTTP 请求.generated-requests | #22" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19072.14" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19072.14" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="1a4d2a80-28d8-4fd3-b312-b7ff19fa7254" name="更改" comment="" />
+      <created>1731654217787</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731654217787</updated>
+      <workItem from="1731654218832" duration="658000" />
+      <workItem from="1731947323560" duration="29000" />
+      <workItem from="1731993817189" duration="8000" />
+      <workItem from="1732006517319" duration="8299000" />
+      <workItem from="1732018407126" duration="4396000" />
+      <workItem from="1732023971024" duration="5734000" />
+      <workItem from="1732067371055" duration="1398000" />
+      <workItem from="1732068830412" duration="41000" />
+      <workItem from="1732068883155" duration="43000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: 初始化 SMTP 邮件项目&#10;&#10;- 添加项目基础结构和配置文件&#10;- 实现用户认证和拦截器功能&#10;- 添加邮件解析和发送工具类&#10;- 创建数据库表和 Mapper 文件&#10;-编写单元测试用例">
+      <option name="closed" value="true" />
+      <created>1732020587585</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732020587585</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: 初始化 SMTP 邮件项目&#10;&#10;- 添加项目基础结构和配置文件&#10;- 实现用户认证和拦截器功能&#10;- 添加邮件解析和发送工具类&#10;- 创建数据库表和 Mapper 文件&#10;-编写单元测试用例" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 初始化 SMTP 邮件项目&#10;&#10;- 添加项目基础结构和配置文件&#10;- 实现用户认证和拦截器功能&#10;- 添加邮件解析和发送工具类&#10;- 创建数据库表和 Mapper 文件&#10;-编写单元测试用例" />
+  </component>
+</project>
